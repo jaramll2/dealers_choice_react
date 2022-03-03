@@ -6,19 +6,27 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.0/axios.min.js" integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   </head>
   <body>
+    <h1>These Are My Pets</h1>
     <div id='root'></div>
     <script type='text/babel'>
-        
-        const PetList = function (prop){
-            const pets = prop.pets;
 
-            return(
-                pets.map(pet=> { return (
-                    <div>{pet.name}</div>
-                    )
-                })    
-            );
-        };
+        //TODO: Display data in a more appealing way (CSS sheet needed)
+        // const PetList = function (prop){
+        //     const pets = prop.pets;
+
+        //     return(
+        //         pets.map(pet=> { return (
+        //             <div>
+        //                 <h3>{pet.name}</h3>
+                        
+        //                 <div>Species: {pet.species}</div>
+        //                 <div>Birthday: {pet.birthday}</div>
+        //                 <button onClick = {()=> this.destroy(pet)}>Pet Has Died</button>
+        //             </div>
+        //             )
+        //         })    
+        //     );
+        // };
 
         class Pets extends React.Component{
             constructor(){
@@ -26,6 +34,14 @@
                 this.state = {
                     pets: []
                 };
+
+                this.destroy = this.destroy.bind(this);
+            }
+
+            async destroy(pet){
+                await axios.delete(`/pets/${pet.id}`);
+                const pets = this.state.pets.filter(_pet=>_pet.id !== pet.id);
+                this.setState({pets});
             }
 
             async componentDidMount(){
@@ -43,10 +59,21 @@
             }
 
             render() {
+                const pets = this.state.pets;
                 return (
                     <div id="petList">
                         {
-                            <PetList pets = {this.state.pets}/>
+                            pets.map(pet=>{
+                                return (
+                                    <div>
+                                        <h3>{pet.name}</h3>
+                        
+                                        <div>Species: {pet.species}</div>
+                                        <div>Birthday: {pet.birthday}</div>
+                                        <button onClick = {()=> this.destroy(pet)}>Pet Has Died</button>
+                                    </div>
+                                )
+                            })
                         }
                     </div>
                 );

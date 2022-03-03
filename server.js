@@ -30,6 +30,8 @@ const express = require('express');
 const app = express();
 const path = require('path');
 
+//TODO: add the ability to insert and delte data
+
 app.get('/pets', async(req,res,next)=>{
     try{
         const pets = await Pet.findAll();
@@ -43,6 +45,17 @@ app.get('/pets', async(req,res,next)=>{
 app.get('/', async(req,res,next)=>{
     try{
         res.sendFile(path.join(__dirname,'index.html'));
+    }
+    catch(err){
+        next(err);
+    }
+});
+
+app.delete('/pets/:id', async(req,res,next)=>{
+    try{
+        const pet = await Pet.findByPk(req.params.id);
+        await pet.destroy();
+        res.sendStatus(204);
     }
     catch(err){
         next(err);
