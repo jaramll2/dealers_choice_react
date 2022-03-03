@@ -30,7 +30,7 @@ const express = require('express');
 const app = express();
 const path = require('path');
 
-//TODO: add the ability to insert and delte data
+//TODO: add the ability to insert data
 
 app.get('/pets', async(req,res,next)=>{
     try{

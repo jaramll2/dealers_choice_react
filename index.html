@@ -11,23 +11,6 @@
     <script type='text/babel'>
 
         //TODO: Display data in a more appealing way (CSS sheet needed)
-        // const PetList = function (prop){
-        //     const pets = prop.pets;
-
-        //     return(
-        //         pets.map(pet=> { return (
-        //             <div>
-        //                 <h3>{pet.name}</h3>
-                        
-        //                 <div>Species: {pet.species}</div>
-        //                 <div>Birthday: {pet.birthday}</div>
-        //                 <button onClick = {()=> this.destroy(pet)}>Pet Has Died</button>
-        //             </div>
-        //             )
-        //         })    
-        //     );
-        // };
-
         class Pets extends React.Component{
             constructor(){
                 super();
@@ -76,6 +59,8 @@
                             })
                         }
                     </div>
+
+                    //TODO: add ability to add data. Include button here
                 );
             }
         } 
